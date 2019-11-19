@@ -1,9 +1,9 @@
 #include <iostream>
 #include "CandNet.h"
 
-// MODE TRAINING
+// TRAINING MODE
 #define SGD 			0
-#define SGD_Momentum 	1
+#define SGD_Momentum 		1
 
 float input_[] =
 {
@@ -30,11 +30,12 @@ float myIn[][2] =
 	{1, 1},			//0
 	{0.7, 0.2},		//1
 	{0, 0.1},		//2
-	{0.9, 0.82},	//3
+	{0.9, 0.82},		//3
 	{0, 1},			//4
 	{0.9, .2}		//5
 };
 
+// INITIAL WEIGHT and BIAS
 float weight_0[] = 
 {
 	19.3925914764, -18.9110946655, 
@@ -56,8 +57,9 @@ float bias_1[] =
 {
 	6.9632215500
 };
+////////
 
-int n_dataTrain = 6;
+int n_dataTrain = 6; //number of data training
 int index = 0;
 
 int main(int argc, char **argv)
@@ -70,7 +72,8 @@ int main(int argc, char **argv)
 	{
 		index = 0;
 	}
-	CandNet myNet(2, 2, 1);
+	
+	CandNet myNet(2, 2, 1); //CandNet myNet(number_input, number_hidden, number_output)
 	CandMat myInput(2, 1, myIn[index]);
 
 	//set weight and bias
@@ -83,20 +86,20 @@ int main(int argc, char **argv)
 	myNet.setAllBias(B0, B1);
 
 	// Data training
-	// CandMat in(4, 2, input_);
-	// CandMat targ(4, 1, target_);
-	// printf("######### SEDANG TRAINING..... ########\n");
+	// CandMat in(4, 2, input_); //matrix for input data train
+	// CandMat targ(4, 1, target_); //matrix for target data train
+	// printf("######### TRAINING..... ########\n");
 	// myNet.training(n_dataTrain, 50000, in, targ, .9, SGD);
-	// printf("######### HASIL ########\n");
+	// printf("######### RESULT ########\n");
 	// (myNet.inference(myInput)).printMat();
 	// myNet.training(n_dataTrain, 25000, in, targ, 1., SGD_Momentum);
-	// printf("######### TRAINING SELESAI :) ########\n\n\n");
+	// printf("######### DONE TRAINING :) ########\n\n\n");
 
-	printf("######### HASIL ########\n");
+	printf("######### RESULT ########\n");
 	(myNet.inference(myInput)).printMat();
 	printf("\n");
-	myNet.getAllWeight();
+	myNet.getAllWeight(); //print all the weight
 	printf("\n");
-	myNet.getAllBias();
+	myNet.getAllBias(); //print all the bias
 	return 0;
 }
