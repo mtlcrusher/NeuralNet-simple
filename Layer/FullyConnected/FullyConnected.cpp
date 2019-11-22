@@ -17,6 +17,9 @@ fuco::fuco(int in, int out) : layer(in, out)
 	this->setWeight(weight);
 	this->setBias(bias);
 
+	// this->getWeight().printMat();
+	// getchar();	
+
 	this->setVWeight(vweight);
 	this->setVBias(vbias);
 }
@@ -33,7 +36,6 @@ CandMat fuco::solver(float lr, CandMat targ, int mode)
 {
 	CandMat error;
 	error = CandMat::subtract(this->getOutput(), targ);
-	// error = CandMat::subtract(targ, this->getOutput());
 
 	switch(mode)
 	{
@@ -69,8 +71,9 @@ CandMat fuco::solver(float lr, CandMat targ, int mode)
 							error, 
 							CandMat::map(dsigmoid, this->getOutput())), 
 						CandMat::transpose(this->getInput()))))));
-
-			// this->getVWeight().printMat();
+			
+			// printf("======== BELUM ========\n");
+			// this->getWeight().printMat();
 			// getchar();
 
 			this->setWeight(CandMat::subtract(
@@ -78,6 +81,9 @@ CandMat fuco::solver(float lr, CandMat targ, int mode)
 				CandMat::scalar(
 					lr,
 					this->getVWeight())));
+			// printf("======== SUDAH ========\n");
+			// this->getWeight().printMat();
+			// getchar();
 
 			// BIAS
 			this->setVBias(CandMat::add(
@@ -98,10 +104,10 @@ CandMat fuco::solver(float lr, CandMat targ, int mode)
 	return error;
 }
 
-CandMat fuco::solver(CandMat E, float lr, int mode)
+CandMat fuco::solver(CandMat E, float lr, layer *lptr, int mode)
 {
 	CandMat error;
-	error = CandMat::dotprod(CandMat::transpose(this->getWeight()), E);
+	error = CandMat::dotprod(CandMat::transpose(lptr->getWeight()), E);
 
 	switch(mode)
 	{
@@ -128,6 +134,9 @@ CandMat fuco::solver(CandMat E, float lr, int mode)
 		case 1:
 
 			// WEIGHT
+			// printf("======== BELUM ========\n");
+			// this->getWeight().printMat();
+			// getchar();
 			this->setVWeight(CandMat::add(
 				CandMat::scalar(0.9, this->getVWeight()), 
 				CandMat::scalar(
@@ -138,15 +147,15 @@ CandMat fuco::solver(CandMat E, float lr, int mode)
 							CandMat::map(dsigmoid, this->getOutput())), 
 						CandMat::transpose(this->getInput()))))));
 
-			// this->getVWeight().printMat();
-			// getchar();
-
 			this->setWeight(CandMat::subtract(
 				this->getWeight(), 
 				CandMat::scalar(
 					lr,
 					this->getVWeight())));
 
+			// printf("======== SUDAH ========\n");
+			// this->getWeight().printMat();
+			// getchar();
 			// BIAS
 			this->setVBias(CandMat::add(
 				CandMat::scalar(0.9, this->getVBias()), 

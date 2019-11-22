@@ -10,7 +10,7 @@ public:
 	fuco(int in, int out);
 	CandMat forward(CandMat m1);
 	CandMat solver(float lr, CandMat targ, int mode);
-	CandMat solver(CandMat E, float lr, int mode);
+	CandMat solver(CandMat E, float lr, layer *lptr, int mode);
 
 	void setWeight(CandMat m);
 	void setBias(CandMat m);
