@@ -11,7 +11,7 @@ public:
 	layer(int in, int out);
 	virtual CandMat forward(CandMat m1) = 0;
 	virtual CandMat solver(float lr, CandMat targ, int mode) = 0;
-	virtual CandMat solver(CandMat E, float lr, int mode) = 0;
+	virtual CandMat solver(CandMat E, float lr, layer *lptr, int mode) = 0;
 
 	virtual void setWeight(CandMat m) = 0;
 	virtual void setBias(CandMat m) = 0;
