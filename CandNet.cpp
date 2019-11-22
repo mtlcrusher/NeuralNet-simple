@@ -37,7 +37,7 @@ void CandNet::training(int n_data, int epoch, CandMat input_, CandMat target_, f
 			CandMat INPUT(this->in, 1, input_.val[data]);
 			CandMat TARGET(this->out, 1, target_.val[data]);
 			inference(INPUT);
-			lptr[0]->solver(lptr[1]->solver(lr, TARGET, mode), lr, mode);
+			lptr[0]->solver(lptr[1]->solver(lr, TARGET, mode), lr, lptr[1], mode);
 		}
 	}
 }
